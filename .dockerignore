@@ -1,11 +1,12 @@
+
 Youtemy.code-workspace
 .git/
 .env*
 Dockerfile
 Dockerfile.empty
+README.md
 commands.md
 
-.env*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
