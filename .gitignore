@@ -4,6 +4,7 @@ Youtemy.code-workspace
 Dockerfile
 Dockerfile.empty
 commands.md
+rav.yaml
 
 .env*
 # Byte-compiled / optimized / DLL files

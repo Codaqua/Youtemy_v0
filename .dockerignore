@@ -6,6 +6,7 @@ Dockerfile
 Dockerfile.empty
 README.md
 commands.md
+rav.yaml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
