@@ -7,8 +7,6 @@ on:
       - "main"
       # - "login"
 
-
-
 jobs:
   test:
     runs-on: ubuntu-latest
