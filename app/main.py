@@ -9,3 +9,4 @@ app = FastAPI()
 def home_page():
     return {"Hello": "World", "mode": MODE}
 
+
