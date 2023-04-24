@@ -1,7 +1,6 @@
 Youtemy.code-workspace
 .git/
 .env*
-Dockerfile
 Dockerfile.empty
 commands.md
 rav.yaml
