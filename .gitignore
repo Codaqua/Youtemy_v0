@@ -4,6 +4,9 @@ Youtemy.code-workspace
 Dockerfile.empty
 commands.md
 rav.yaml
+README1.md
+alembic.ini
+db-migrations/versions/
 
 .env*
 # Byte-compiled / optimized / DLL files

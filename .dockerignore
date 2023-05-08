@@ -7,6 +7,9 @@ Dockerfile.empty
 README.md
 commands.md
 rav.yaml
+README1.md
+alembic.ini
+db-migrations/versions/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
