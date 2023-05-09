@@ -8,6 +8,7 @@ README1.md
 alembic.ini
 db-migrations/versions/
 database.py
+db-migrations
 
 .env*
 # Byte-compiled / optimized / DLL files

@@ -11,6 +11,7 @@ README1.md
 alembic.ini
 db-migrations/versions/
 database.py 
+db-migrations
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
