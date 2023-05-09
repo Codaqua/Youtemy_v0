@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from app.models import Centers_Enum, Studies_Enum, Subjects_Enum, Grades_Enum
 from app.models import Course
 
+# TODO : Verify if this file is still needed
 
 class VideoSchema(BaseModel):
     video_id: int

@@ -29,6 +29,7 @@ def get_db():
 router = APIRouter(
     prefix='/users',
     tags=['users']
+    # TODO : check vi135 -> responses= {404: {"description": "Not found"}}
 )
 
 # db_dependency = Annotated[Session, Depends(get_db)]

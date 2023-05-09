@@ -12,6 +12,10 @@ from app.routers import users, auth, permission, role_permission, user_roles, co
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
 # Jason
 # @app.get("/")
 # def home_page():
@@ -42,9 +46,7 @@ app.include_router(user_roles.router)
 app.include_router(video.router)
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+
 
 
 
