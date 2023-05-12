@@ -4,7 +4,7 @@ sys.path.append("..")
 from datetime import datetime
 from typing import Optional, List, Annotated
 import app.models as models
-from app.models import Course, Course_Sections, Centers_Enum, Studies_Enum, Subjects_Enum, Grades_Enum
+from app.models import Course, Course_Sections
 
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session, joinedload
@@ -16,7 +16,7 @@ from fastapi.responses import JSONResponse
 
 from app.database import SessionLocal, engine
 
-from app.schemas import CourseWithDetails, VideoSchema, CourseSectionSchema, CourseKeywordSchema, CenterSchema, StudySchema, SubjectSchema, GradeSchema, CourseTagSchema
+# from app.schemas import CourseWithDetails, VideoSchema, CourseSectionSchema, CourseKeywordSchema, CourseTagSchema
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -132,11 +132,11 @@ async def get_courses(db: Session = Depends(get_db)):
         .all()
     
         # Print out the courses and their related objects
-    for course in courses:
-        print(course)
-        print(course.course_sections)
-        print(course.course_keywords)
-        print(course.course_tags)
+    # for course in courses:
+    #     print(course)
+    #     print(course.course_sections)
+    #     print(course.course_keywords)
+    #     print(course.course_tags)
     
     # return courses
     

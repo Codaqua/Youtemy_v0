@@ -33,6 +33,12 @@ class CourseTag(BaseModel):
     course_id: int
     tag_id: int
 
+
+class CourseTagCreate(BaseModel):
+    course_id: int
+    tag_id: int
+    
+
 @router.get('/', status_code=status.HTTP_200_OK)
 async def get_course_tags(db: Session = Depends(get_db)):
     course_tags = db.query(Course_Tag).all()
@@ -63,14 +69,21 @@ class CourseTagCreate(BaseModel):
 async def create_course_tag(course_tag: CourseTagCreate, db: Session = Depends(get_db)):
     new_course_tag = Course_Tag(
         course_id=course_tag.course_id,
-        center_id=course_tag.center_id,
-        study_id=course_tag.study_id,
-        subject_id=course_tag.subject_id,
-        grade_id=course_tag.grade_id,
+        tag_id=course_tag.tag_id,
     )
     db.add(new_course_tag)
     db.commit()
     return {"message": "Course tag created successfully", "course_tag_id": new_course_tag.course_tag_id}
+    # new_course_tag = Course_Tag(
+    #     course_id=course_tag.course_id,
+    #     center_id=course_tag.center_id,
+    #     study_id=course_tag.study_id,
+    #     subject_id=course_tag.subject_id,
+    #     grade_id=course_tag.grade_id,
+    # )
+    # db.add(new_course_tag)
+    # db.commit()
+    # return {"message": "Course tag created successfully", "course_tag_id": new_course_tag.course_tag_id}
 
 
 # class CreateCourseTag(BaseModel):

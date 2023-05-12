@@ -122,4 +122,3 @@ async def get_user(db: Session = Depends(get_db)):
 #     db.add(user_model)
 #     db.commit()
 
-

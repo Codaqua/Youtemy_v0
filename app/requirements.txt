@@ -7,7 +7,6 @@ httpx
 google-auth
 google-cloud-secret-manager
 sqlalchemy
-# databases
 asyncpg
 psycopg2
 psycopg2-binary
@@ -15,3 +14,8 @@ alembic
 passlib[bcrypt]
 python-multipart
 python-jose[cryptography]
+asyncio
+# databases
+# pyjwt
+# greenlet
+# email-validator

@@ -7,14 +7,15 @@ rav.yaml
 README1.md
 alembic.ini
 db-migrations/versions/
-database.py
 db-migrations
-
+.vscode
 .env*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+Pending.md
+
 
 # C extensions
 *.so

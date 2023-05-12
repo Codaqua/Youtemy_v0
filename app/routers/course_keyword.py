@@ -27,6 +27,7 @@ router = APIRouter(
     tags=['course_keywords']
 )
 
+
 class CourseKeyword(BaseModel):
     keyword_id: int
     course_id: int

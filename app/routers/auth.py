@@ -37,7 +37,6 @@ models.Base.metadata.create_all(bind=engine)
 
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="token")
 
 router = APIRouter(
@@ -54,14 +53,10 @@ class CreateUserRequest(BaseModel):
     email: str
     avatar_image: Optional[str] = None
     password: str
+    role_id: int
     # created_at: str
     # updated_at: str
     # TODO: PENDIENTE
-    role_id: int
-
-
-
-
 
 
 def get_db():
@@ -99,7 +94,7 @@ def create_access_token(username: str, user_id: int,
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=15)
+        expire = datetime.utcnow() + timedelta(minutes=60)
     encode.update({"exp": expire})
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
 
@@ -171,6 +166,9 @@ def token_exception():
     return token_exception_response
 
 
+
+
+
 # @router.post("/create/user")
 # async def create_new_user(create_user: CreateUser, db: Session = Depends(get_db)):
 #     create_user_model = models.Users()
@@ -186,10 +184,6 @@ def token_exception():
 
 #     db.add(create_user_model)
 #     db.commit()
-
-
-
-
 
 
 

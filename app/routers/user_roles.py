@@ -5,10 +5,11 @@ from fastapi import Depends, APIRouter
 from sqlalchemy.orm import Session
 import app.models as models
 from app.models import User_Role
-from app.database import SessionLocal, engine
 from pydantic import BaseModel
 from starlette import status
 from typing import Optional
+# from app.database import SessionLocal, engine
+from app.database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -18,6 +19,10 @@ def get_db():
         yield db
     finally:
         db.close()
+
+# async def get_db():
+#     async with AsyncSessionLocal() as session:
+#         yield session
 
 router = APIRouter(
     prefix='/user_roles',

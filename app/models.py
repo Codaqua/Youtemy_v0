@@ -29,6 +29,8 @@ class Users(Base):
     # updated_at = Column(TIMESTAMP, nullable=False, default=func.now(), onupdate=func.now())
     # TODO: PENDIENTE
     role_id = Column(Integer, ForeignKey("user_roles.role_id"), nullable=False)
+    # TODO: role_id = Column(Integer, ForeignKey("user_roles.role_id"), nullable=False, default=1)
+    # TODO : role_id = Column(Integer, ForeignKey("user_roles.role_id"), nullable=False, server_default=RoleType.student.name)
     
     # role_id = Column(Integer, ForeignKey("roles.role_id"))
 
@@ -36,12 +38,13 @@ class Users(Base):
     # TODO: PENDIENTE
     # courses = relationship("Course", back_populates="creator")
 
-class User_Role(Base):
+class User_Role(Base):  
     __tablename__ = "user_roles"
 
     role_id = Column(Integer, primary_key=True)
     role_name = Column(String(50), unique=True, nullable=False)
     role_description = Column(Text)
+# TODO: esto podría ser un enum
 
     # users = relationship("Users", back_populates="role")
     # TODO: PENDIENTE
@@ -94,7 +97,7 @@ class Course(Base):
 
     # Relationship with Course_Sections
     sectionsRelation = relationship("Course_Sections", back_populates="course")
-    
+    course_sections = relationship("Course_Sections", back_populates="course")
     course_keywords = relationship("Course_Keyword", back_populates="course")
     course_tags = relationship("Course_Tag", back_populates="course")
     # tutor_id = relationship("Users", back_populates="courses")
@@ -115,6 +118,7 @@ class Course_Sections(Base):
     # course = relationship("Course", back_populates="sections")
         
     # relationship with Course
+    course = relationship("Course", back_populates="course_sections")
     course = relationship("Course", back_populates="sectionsRelation")
     # relationship with Video
     videos = relationship("Video", back_populates="sectionsRelation")
@@ -141,26 +145,26 @@ class Tag_Type_Enum(enum.Enum):
     subjects = "Subjects"
     grades = "Grades"
 
-class Centers_Enum(enum.Enum):
-    uoc = "Universitat Oberta de Catalunya"
-    upm = "Universidad Politécnica de Madrid"
-    uo = "Universidad de Oviedo"
+# class Centers_Enum(enum.Enum):
+#     uoc = "Universitat Oberta de Catalunya"
+#     upm = "Universidad Politécnica de Madrid"
+#     uo = "Universidad de Oviedo"
 
-class Studies_Enum(enum.Enum):
-    computer = "Computer Engineering"
-    economics = "Economics"
-    law = "Law"
+# class Studies_Enum(enum.Enum):
+#     computer = "Computer Engineering"
+#     economics = "Economics"
+#     law = "Law"
 
-class Subjects_Enum(enum.Enum):
-    algebra = "Algebra"
-    maths = "Mathematics"
-    statistics = "Statistics"
+# class Subjects_Enum(enum.Enum):
+#     algebra = "Algebra"
+#     maths = "Mathematics"
+#     statistics = "Statistics"
 
-class Grades_Enum(enum.Enum):
-    grade_1 = "1"
-    grade_2 = "2"
-    grade_3 = "3"
-    grade_4 = "4"
+# class Grades_Enum(enum.Enum):
+#     grade_1 = "1"
+#     grade_2 = "2"
+#     grade_3 = "3"
+#     grade_4 = "4"
 
 # class Tag(Base):
 #     __tablename__ = 'tags'
@@ -174,48 +178,67 @@ class Grades_Enum(enum.Enum):
     # tag_name = Column(String(50), unique=True)
     # tag_description = Column(String(100))
 
-class Center(Base):
-    __tablename__ = 'centers'
-    center_id = Column(Integer, primary_key=True)
-    center = Column(Enum(Centers_Enum), unique=True)
-    
-    course_tags = relationship("Course_Tag", back_populates="center")
+# class Tag(Base):
+#     __tablename__ = 'tags'
+#     tag_id = Column(Integer, primary_key=True)
+#     tag_type = Column(Enum(Tag_Type_Enum), nullable=False)
+#     name = Column(String, nullable=False, unique=True)
 
-class Study(Base):
-    __tablename__ = 'studies'
-    study_id = Column(Integer, primary_key=True)
-    study = Column(Enum(Studies_Enum), unique=True)
-    
-    course_tags = relationship("Course_Tag", back_populates="study")
+#     course_tags = relationship("Course_Tag", back_populates="tag")
 
-class Subject(Base):
-    __tablename__ = 'subjects'
-    subject_id = Column(Integer, primary_key=True)
-    subject = Column(Enum(Subjects_Enum), unique=True)
+# class Center(Base):
+#     __tablename__ = 'centers'
+#     center_id = Column(Integer, primary_key=True)
+#     center = Column(Enum(Centers_Enum), unique=True)
     
-    course_tags = relationship("Course_Tag", back_populates="subject")
+#     course_tags = relationship("Course_Tag", back_populates="center")
 
-class Grade(Base):
-    __tablename__ = 'grades'
-    grade_id = Column(Integer, primary_key=True)
-    grade = Column(Enum(Grades_Enum), unique=True)
+# class Study(Base):
+#     __tablename__ = 'studies'
+#     study_id = Column(Integer, primary_key=True)
+#     study = Column(Enum(Studies_Enum), unique=True)
     
-    course_tags = relationship("Course_Tag", back_populates="grade")
+#     course_tags = relationship("Course_Tag", back_populates="study")
+
+# class Subject(Base):
+#     __tablename__ = 'subjects'
+#     subject_id = Column(Integer, primary_key=True)
+#     subject = Column(Enum(Subjects_Enum), unique=True)
+    
+#     course_tags = relationship("Course_Tag", back_populates="subject")
+
+# class Grade(Base):
+#     __tablename__ = 'grades'
+#     grade_id = Column(Integer, primary_key=True)
+#     grade = Column(Enum(Grades_Enum), unique=True)
+    
+#     course_tags = relationship("Course_Tag", back_populates="grade")
+
+
+class Tag(Base):
+    __tablename__ = 'tags'
+    id = Column(Integer, primary_key=True)
+    tag_type = Column(Enum(Tag_Type_Enum), nullable=False)
+    name = Column(String, nullable=False, unique=True)
+
+    course_tags = relationship("Course_Tag", back_populates="tag")
 
 class Course_Tag(Base):
     __tablename__ = 'course_tags'
     course_tag_id = Column(Integer, primary_key=True)
     course_id = Column(Integer, ForeignKey('courses.course_id'), nullable=False)
-    center_id = Column(Integer, ForeignKey('centers.center_id'), nullable=True)
-    study_id = Column(Integer, ForeignKey('studies.study_id'), nullable=True)
-    subject_id = Column(Integer, ForeignKey('subjects.subject_id'), nullable=True)
-    grade_id = Column(Integer, ForeignKey('grades.grade_id'), nullable=True)
+    tag_id = Column(Integer, ForeignKey('tags.id'), nullable=False)
+    # center_id = Column(Integer, ForeignKey('centers.center_id'), nullable=True)
+    # study_id = Column(Integer, ForeignKey('studies.study_id'), nullable=True)
+    # subject_id = Column(Integer, ForeignKey('subjects.subject_id'), nullable=True)
+    # grade_id = Column(Integer, ForeignKey('grades.grade_id'), nullable=True)
 
     course = relationship("Course", back_populates="course_tags")
-    center = relationship("Center", back_populates="course_tags")
-    study = relationship("Study", back_populates="course_tags")
-    subject = relationship("Subject", back_populates="course_tags")
-    grade = relationship("Grade", back_populates="course_tags")
+    tag = relationship("Tag", back_populates="course_tags")
+    # center = relationship("Center", back_populates="course_tags")
+    # study = relationship("Study", back_populates="course_tags")
+    # subject = relationship("Subject", back_populates="course_tags")
+    # grade = relationship("Grade", back_populates="course_tags")
     
 # class Course_Tag(Base):
 #     __tablename__ = 'course_tags'
@@ -233,3 +256,4 @@ class Course_Keyword(Base):
     keyword_description = Column(String(100), unique=True)
     
     course = relationship("Course", back_populates="course_keywords")
+

@@ -27,6 +27,7 @@ router = APIRouter(
     tags=['course_enrolled']
 )
 
+
 class CourseEnrollment(BaseModel):
     enrolled_courses_id: int
     user_id: int
