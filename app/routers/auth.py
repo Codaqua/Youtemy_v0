@@ -2,7 +2,6 @@ import sys
 sys.path.append("..")
 
 from fastapi import Depends, HTTPException, status, APIRouter
-from pydantic import BaseModel
 from typing import Optional
 
 # Library for encrypting passwords
@@ -11,6 +10,7 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import datetime, timedelta
 from jose import jwt, JWTError
+from decouple import config
 
 
 
@@ -30,8 +30,6 @@ from app.database import SessionLocal, engine
 # from .auth import get_current_user
 from passlib.context import CryptContext
 
-SECRET_KEY = "KlgH6AzYDeZeGwD288to79I3vTHT8wp7"
-ALGORITHM = "HS256"
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -96,12 +94,12 @@ def create_access_token(username: str, user_id: int,
     else:
         expire = datetime.utcnow() + timedelta(minutes=60)
     encode.update({"exp": expire})
-    return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(encode, config("SECRET_KEY"), algorithm=config("ALGORITHM"))
 
 
 async def get_current_user(token: str = Depends(oauth2_bearer)):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, config("SECRET_KEY"), algorithms=[config("ALGORITHM")])
         username: str = payload.get("sub")
         user_id: int = payload.get("id")
         if username is None or user_id is None:
