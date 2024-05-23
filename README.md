@@ -3,7 +3,7 @@
 
 ## Overview
 
-Development of Youtemy, an educational platform that offers free courses in video format, based on curated content from YouTube, as a development of the Final Degree Project at the UOC. 
+Development of Youtemy, an educational platform that offers free courses in video format, based on curated content from YouTube. 
 
 The goal is to create an educational platform that offers educational itineraries adapted to the specific needs of each individual according to the syllabus they are studying at any given time.
 
