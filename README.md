@@ -1,5 +1,5 @@
 # Youtemy v0.1
-#### By Jesús Arcis Díaz
+#### By Jesús A.
 
 ## Overview
 
